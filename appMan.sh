@@ -589,9 +589,21 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
         addrs=$(echo $REMOTE_SERVER_ADDRS | tr ";" "\n")
 
         for i in ${addrs[@]}; do
-            echo "Server: $i"
-            echo "============================================="
-            ssh $i 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "R"
+            while true; do
+                read -p "Enter y/n to execute script for $i?" yn
+                case $yn in
+                [Yy]* ) echo "Server: $i"
+                        echo "============================================="
+                        ssh $i 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "R"
+                        break
+                        ;;
+                [Nn]* ) echo "$i skipped."
+                        break
+                        ;;
+                    * ) echo "Please answer y/n."
+                        ;;
+                esac
+            done
         done
     fi
 else
