@@ -587,7 +587,10 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
         options
     else
         addrs=$(echo $REMOTE_SERVER_ADDRS | tr ";" "\n")
+
         for i in ${addrs[@]}; do
+            echo "Server: $i"
+            echo "============================================="
             ssh $i 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "R"
         done
     fi
