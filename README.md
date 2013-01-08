@@ -39,7 +39,7 @@ Output
     Server: tomcat@server01
     --------------------------------------------
 
-    systray-server is running!
+    mytomcatapp is running!
 
     PID     Mem Usage   VSZ        Mem%     CPU%    
     --------------------------------------------
