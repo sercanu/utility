@@ -32,4 +32,19 @@ Examples
     appMan.sh kbwst   >   kill, backup, deploy war, start, tail       
     appMan.sh help    >   show help  
 
+Output
+
+    ./appMan.sh check
+    Enter y/n to execute script for tomcat@server01?y
+    Server: tomcat@server01
+    --------------------------------------------
+
+    mytomcatapp is running!
+
+    PID     Mem Usage   VSZ        Mem%     CPU%    
+    --------------------------------------------
+    27519   792 MB      3317 MB    6.6      2.8     
+
+    Enter y/n to execute script for tomcat@server02?n
+    tomcat@server02 skipped.
 
