@@ -73,14 +73,14 @@ Edit the config.sh, all parameters are explained at AppMan.sh's README
     # Default is user's home, leave it blank for default
     REMOTE_SCRIPT_PATH=""
 
-# cp database.properties $RUNNING_APP_DIRECTORY/classes/
-function custom() {
+    # cp database.properties $RUNNING_APP_DIRECTORY/classes/
+    function custom() {
 
- echo "custom function started..."
+        echo "custom function started..."
 
-   # Code anything you wish...
-   # copy database.properties, set environment parameters etc..
+        # Code anything you wish...
+        # copy database.properties, set environment parameters etc..
 
-   echo "custom function ended."
+        echo "custom function ended."
 
- }
+    }
