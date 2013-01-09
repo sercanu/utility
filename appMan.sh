@@ -8,11 +8,11 @@
 #                                                                            #
 #     Examples:                                                              #
 #        appMan.sh start   >   start application                             #
-#     	 appMan.sh s       >   start application                             #
-#     	 appMan.sh tail    >   tail the log file                             #
-#     	 appMan.sh st      >   start app. and tail the log file              #
-#     	 appMan.sh wst     >   deploy war, start app, tail log               #
-#     	 appMan.sh kbwst   >   kill, backup, deploy war, start, tail         #
+#        appMan.sh s       >   start application                             #
+#        appMan.sh tail    >   tail the log file                             #
+#        appMan.sh st      >   start app. and tail the log file              #
+#        appMan.sh wst     >   deploy war, start app, tail log               #
+#        appMan.sh kbwst   >   kill, backup, deploy war, start, tail         #
 #        appMan.sh help    >   show help                                     #
 #                                                                            #
 #     Supported Commands                                                     #
@@ -41,25 +41,25 @@
 # NOTE:        IMPORTANT! Parameter must be UNIQUE system wide.
 # MUST/OPT:    MUST
 # SAMPLE:      "mytomcatapp"
-APP_NAME=""
+#APP_NAME=""
 
 # DESCRIPTION: Your app's start script.
 # NOTE:        "start" command will execute this script.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/bin/startup.sh"
-START_SCRIPT=""
+#START_SCRIPT=""
 
 # DESCRIPTION: Your app's stop script.
 # NOTE:        "stop" command will execute this script.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/bin/shutdown.sh"
-STOP_SCRIPT=""
+#STOP_SCRIPT=""
 
 # DESCRIPTION: Path of the log file.
 # NOTE:        "tail" command will use this file
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/logs/catalina.out"
-LOG_FILE_PATH=""
+#LOG_FILE_PATH=""
 
 # DESCRIPTION: Directory of the running application.
 # NOTE:        deploy commands removes this directory and copies
@@ -67,51 +67,51 @@ LOG_FILE_PATH=""
 #              the war file to this directory.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/webapp/ROOT"
-RUNNING_APP_DIRECTORY=""
+#RUNNING_APP_DIRECTORY=""
 
 # DESCRIPTION: Directory of the new release.
 # NOTE:        "deploydir" command copies this directory to
 #              RUNNING_APP_DIRECTORY.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/webapp/temp/release"
-NEW_RELEASE_DIRECTORY=""
+#NEW_RELEASE_DIRECTORY=""
 
 # DESCRIPTION: War file of the application.
 # NOTE:        "deploywar" command extracts this war and copies
 #              to RUNNING_APP_DIRECTORY.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/temp/myapp.war"
-WAR_FILE_PATH=""
+#WAR_FILE_PATH=""
 
 # DESCRIPTION: Directory of the backups.
 # NOTE:        "backup" command creates directory
-#			         with name of APP_NAME_YYMMDDHHSS. Then copies
+#                    with name of APP_NAME_YYMMDDHHSS. Then copies
 #              all files from RUNNING_APP_DIRECTORY.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "/home/user/mytomcatapp/temp/backup/"
-BACKUP_DIRECTORY=""
+#BACKUP_DIRECTORY=""
 
 # DESCRIPTION: Remote server's address. If you leave blank script
 #              will be run on this machine. 
 # NOTE:        Several servers can be added with seperator ;
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      "user1@server1;user2@server2;userN@serverN"
-REMOTE_SERVER_ADDRS=""
+#REMOTE_SERVER_ADDRS=""
 
 # DESCRIPTION: Custom function. It is a hook that you can do anything.
 # NOTE:        "custom" command calls this function.
 # MUST/OPT:    OPTIONAL
 # SAMPLE:      cp database.properties $RUNNING_APP_DIRECTORY/classes/
-function custom() {
-
- echo "custom function started..."
+#function custom() {
+#
+# echo "custom function started..."
 
    # Code anything you wish...
    # copy database.properties, set environment parameters etc..
 
-   echo "custom function ended."
+#   echo "custom function ended."
 
- }
+ #}
 
 
 #*********************   - SETTINGS SECTION END -    *************************
@@ -124,10 +124,6 @@ function custom() {
 #*****************************************************************************
 #***********************   FUNCTIONS SECTION START    ************************
 #*****************************************************************************
-
-APP_NAME_FOR_PID="'[${APP_NAME:0:1}]${APP_NAME:1}'"
-PID_COMMAND="ps aux | grep $APP_NAME_FOR_PID | awk '{print "'$2'"}'"
-
 
 function checkAppNameIsEmpty() {
 
@@ -372,7 +368,7 @@ function deployWar() {
           echo "PATH is: $PATH"
           echo "jar command could not be found. Check your java installation."
           echo "Be SURE that PATH setting at basrc is above the line --If not running interactively, don't do anything--"
-	      exit -1
+          exit -1
     fi
 
     echo ""
@@ -404,8 +400,8 @@ function backupApp() {
     fi
 
     if [ -z "$BACKUP_DIRECTORY" ]; then
-	      echo "BACKUP_DIRECTORY can not be blank"
-	      exit -1
+          echo "BACKUP_DIRECTORY can not be blank"
+          exit -1
     fi
 
     if [ ! -d "$BACKUP_DIRECTORY" ]; then
@@ -490,12 +486,12 @@ function checkShortCommands() {
 
     SHORT_COMMANDS="$COMMAND_TYPE"
 
-	  for i in $(seq 0 $((${#SHORT_COMMANDS} - 1))); do
+      for i in $(seq 0 $((${#SHORT_COMMANDS} - 1))); do
 
-		    SHORT_COMMAND=${SHORT_COMMANDS:$i:1}
-		    case $SHORT_COMMAND in
+            SHORT_COMMAND=${SHORT_COMMANDS:$i:1}
+            case $SHORT_COMMAND in
 
-			    "s") ;;	             
+                "s") ;;              
                 "p") ;;
                 "k") ;;
                 "t") ;;
@@ -503,7 +499,7 @@ function checkShortCommands() {
                 "w") ;;
                 "d") ;;
                 "b") ;;
-                "m") ;;		
+                "m") ;;     
                  * )  
                      echo "$SHORT_COMMAND option is invalid." 
                      exit -1
@@ -551,8 +547,32 @@ case $COMMAND_TYPE in
 esac
 }
 
+function setConfigFile() {
+
+    if [ -z "$CONFIG_FILE" ]; then
+        echo ""
+        echo "Set configuration file parameter."
+        echo ""
+        exit -1
+    fi
+
+    if [ ! -f "$CONFIG_FILE" ]; then
+        echo ""
+        echo "ERROR: Configuration script file does not exists. $CONFIG_FILE"
+        echo ""
+        exit -1
+    fi
+
+    source "$CONFIG_FILE"
+
+    APP_NAME_FOR_PID="'[${APP_NAME:0:1}]${APP_NAME:1}'"
+    PID_COMMAND="ps aux | grep $APP_NAME_FOR_PID | awk '{print "'$2'"}'"
+
+}
+
 COMMAND_TYPE=$1
-REMOTE_BOOL=$2
+CONFIG_FILE=$2
+REMOTE_BOOL=$3
 
 if [[ ! -z "$REMOTE_BOOL" && "$REMOTE_BOOL" != "R" ]]; then
     REMOTE_BOOL=""
@@ -577,17 +597,21 @@ if [[ "$COMMAND_TYPE" == "" || "$COMMAND_TYPE" == "-help" || "$COMMAND_TYPE" == 
     exit 0
 fi
 
+setConfigFile
+
 SCRIPT_FILENAME=`basename $0`
 SCRIPT_PATH="`dirname \"$0\"`"
 SCRIPT_PATH="`( cd \"$SCRIPT_PATH\" && pwd )`"
 SCRIPT_PATH="$SCRIPT_PATH/$SCRIPT_FILENAME"
 
+
 if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
 
     if [ ! -z "$REMOTE_BOOL" ]; then
+        setConfigFile
         options
     else
-        addrs=$(echo $REMOTE_SERVER_ADDRS | tr ";" "\n")
+        addrs=($(echo $REMOTE_SERVER_ADDRS | tr ";" "\n"))
 
         size=${#addrs[@]}
 
@@ -597,9 +621,18 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
                 while true; do
                     read -p "Enter y/n to execute script for $i?" yn
                     case $yn in
-                    [Yy]* ) echo "Server: $i"
+                    [Yy]* ) 
+                            usernamepair=($(echo $i | tr "@" "\n"))
+                            username=${usernamepair[0]}
+                            if [ -z "$REMOTE_SCRIPT_PATH" ]; then 
+                                 REMOTE_SCRIPT_PATH="$i:/home/$username"
+                            fi
+                            scp -q "$CONFIG_FILE" "$i:$REMOTE_SCRIPT_PATH"
+                            echo ""
+                            echo "Configuration file sync to $i:$REMOTE_SCRIPT_PATH"
+                            echo "Server: $i"
                             echo "============================================="
-                            ssh $i 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "R"
+                            ssh $i 'bash -s' < "$SCRIPT_PATH" "$REMOTE_SCRIPT_PATH$COMMAND_TYPE" "$CONFIG_FILE" "R"
                             break
                           ;;
                     [Nn]* ) echo "$i skipped."
@@ -611,12 +644,20 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
                 done
             done
         else
+            usernamepair=($(echo ${addrs[0]} | tr "@" "\n"))
+            username=${usernamepair[0]}
+            if [ -z "$REMOTE_SCRIPT_PATH" ]; then 
+                 REMOTE_SCRIPT_PATH="${addrs[0]}:/home/$username"
+            fi
+            scp -q "$CONFIG_FILE" "${addrs[0]}:$REMOTE_SCRIPT_PATH"
+            echo ""
+            echo "Configuration file sync to ${addrs[0]}:$REMOTE_SCRIPT_PATH"
             echo "Server: ${addrs[0]}"
             echo "============================================="
-            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "R"
+            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$REMOTE_SCRIPT_PATH$COMMAND_TYPE" "$CONFIG_FILE" "R"
         fi
     fi
 else
+    setConfigFile
     options
 fi
-
