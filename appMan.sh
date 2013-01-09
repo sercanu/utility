@@ -7,13 +7,13 @@
 #                 shown below. Have fun.                                     #
 #                                                                            #
 #     Examples:                                                              #
-#        appMan.sh start   >   start application                             #
-#        appMan.sh s       >   start application                             #
-#        appMan.sh tail    >   tail the log file                             #
-#        appMan.sh st      >   start app. and tail the log file              #
-#        appMan.sh wst     >   deploy war, start app, tail log               #
-#        appMan.sh kbwst   >   kill, backup, deploy war, start, tail         #
-#        appMan.sh help    >   show help                                     #
+#        appMan.sh start config.sh  >   start application                    #
+#        appMan.sh s     config.sh  >   start application                    #
+#        appMan.sh tail  config.sh  >   tail the log file                    #
+#        appMan.sh st    config.sh  >   start app. and tail the log file     #
+#        appMan.sh wst   config.sh  >   deploy war, start app, tail log      #
+#        appMan.sh kbwst config.sh  >   kill, backup, deploy war, start, tail#
+#        appMan.sh help  config.sh  >   show help                            #
 #                                                                            #
 #     Supported Commands                                                     #
 #     command name     short   explanation                                   #
