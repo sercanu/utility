@@ -261,7 +261,6 @@ function stopApp() {
 
             PID=`eval $PID_COMMAND`
             if [ -z "$PID" ] ; then
-                echo "$APP_NAME stopped."
                 break
             fi
             let APP_STOP_WAITING_TIME=APP_STOP_WAITING_TIME+1
