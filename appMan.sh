@@ -632,7 +632,7 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
                             echo "Configuration file sync to $i:$REMOTE_SCRIPT_PATH"
                             echo "Server: $i"
                             echo "============================================="
-                            ssh $i 'bash -s' < "$SCRIPT_PATH" "$REMOTE_SCRIPT_PATH$COMMAND_TYPE" "$CONFIG_FILE" "R"
+                            ssh $i 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
                             break
                           ;;
                     [Nn]* ) echo "$i skipped."
@@ -654,7 +654,7 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
             echo "Configuration file sync to ${addrs[0]}:$REMOTE_SCRIPT_PATH"
             echo "Server: ${addrs[0]}"
             echo "============================================="
-            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$REMOTE_SCRIPT_PATH$COMMAND_TYPE" "$CONFIG_FILE" "R"
+            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
         fi
     fi
 else
