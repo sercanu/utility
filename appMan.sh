@@ -369,7 +369,9 @@ function deployWar() {
     JAR_TEST=`which jar`
 
     if [ -z "$JAR_TEST" ]; then
-	      echo "jar command could not be found. Check your java installation."
+          echo "PATH is: $PATH"
+          echo "jar command could not be found. Check your java installation."
+          echo "Be SURE that PATH setting at basrc is above the line --If not running interactively, don't do anything--"
 	      exit -1
     fi
 
