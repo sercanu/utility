@@ -1,14 +1,19 @@
-Utility repo is for any useful script, code, etc. 
+**Utility repo** is for any useful script, code, etc. 
 Current scripts are
 
- * AppMan.sh : Wrapper for any process. It is possible to kill, start, stop, see memory usage etc. Remote scripting is possible.
+ * appMan.sh : Wrapper for any process. It is possible to kill, start, stop, see memory usage etc. Remote scripting is possible.
 
-AppMan.sh
-============
+appMan.sh
+------------
 
-How to use : Set your UNIQUE application name and other parameters at settings section. Then run the script with parameters shown below. Can be used for Apache Tomcat, Gunicorn etc. or any running process. Start editing the parameters at Settings Sections. Have fun.
+**How to use** : Set your UNIQUE application name and other parameters to **config.sh**. Then run the script with parameters shown below. Can be used for Apache Tomcat, Gunicorn etc. or any running process. Start editing the parameters at **config.sh**. Have fun.
 
-Commands  
+**Sample Execution**
+
+    ./appMan.sh "command name" "config file path"
+    ./appMan.sh start myconfig.sh 
+
+**Commands**
 
     command name     short   explanation                                   
     -------------------------------------------------------
@@ -22,19 +27,19 @@ Commands
     backup           b       backups app. see BACKUP_DIRECTORY param.      
     custom           m       calls your custom function.
 
-Examples
+**Examples**
                                                             
-    appMan.sh start   >   start application                           
-    appMan.sh s       >   start application                           
-    appMan.sh tail    >   tail the log file                           
-    appMan.sh st      >   start app. and tail the log file            
-    appMan.sh wst     >   deploy war, start app, tail log             
-    appMan.sh kbwst   >   kill, backup, deploy war, start, tail       
-    appMan.sh help    >   show help  
+    appMan.sh start config.sh  >   start application                           
+    appMan.sh s     config.sh  >   start application                           
+    appMan.sh tail  config.sh  >   tail the log file                           
+    appMan.sh st    config.sh  >   start app. and tail the log file            
+    appMan.sh wst   config.sh  >   deploy war, start app, tail log             
+    appMan.sh kbwst config.sh  >   kill, backup, deploy war, start, tail       
+    appMan.sh help  config.sh  >   show help  
 
-Output
+**Output**
 
-    ./appMan.sh check
+    ./appMan.sh check myconfig.sh
     Enter y/n to execute script for tomcat@server01?y
     Server: tomcat@server01
     --------------------------------------------
@@ -48,3 +53,35 @@ Output
     Enter y/n to execute script for tomcat@server02?n
     tomcat@server02 skipped.
 
+**config.sh**
+--------------
+Edit the config.sh, all parameters are explained at AppMan.sh's README
+
+    # "mytomcatapp"
+    APP_NAME=""
+    # /home/user/mytomcatapp/bin/startup.sh"
+    START_SCRIPT=""
+    # "/home/user/mytomcatapp/bin/shutdown.sh"
+    STOP_SCRIPT=""
+    # "/home/user/mytomcatapp/logs/catalina.out"
+    LOG_FILE_PATH=""
+    # "/home/user/mytomcatapp/webapp/ROOT"
+    RUNNING_APP_DIRECTORY=""
+    # "/home/user/mytomcatapp/webapp/temp/release"
+    NEW_RELEASE_DIRECTORY=""
+    # "/home/user/mytomcatapp/temp/myapp.war"
+    WAR_FILE_PATH=""
+    # "/home/user/mytomcatapp/temp/backup/"
+    BACKUP_DIRECTORY=""
+    # "user1@server1;user2@server2;userN@serverN"
+    REMOTE_SERVER_ADDRS=""
+    # Default is user's home, leave it blank for default
+    REMOTE_SCRIPT_PATH=""
+
+    # cp database.properties $RUNNING_APP_DIRECTORY/classes/
+    function custom() {
+        echo "custom function started..."
+        # Code anything you wish...
+        # copy database.properties, set environment parameters etc..
+        echo "custom function ended."
+    }
