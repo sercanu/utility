@@ -141,10 +141,10 @@ function checkApp() {
     checkAppNameIsEmpty
   
     PIDS=`eval $PID_COMMAND`
-    divider===============================
+    divider======================================
     divider=$divider$divider
-    header="\n %-7s %-11s %-10s %-8s %-8s\n"
-    format=" %-7s %-11s %-10s %-8s %-8s\n"
+    header="\n %-7s %-11s %-10s %-8s %-8s %-11s\n"
+    format=" %-7s %-11s %-10s %-8s %-8s %-11s\n"
     width=45
 
     if [ -z "$PIDS" ] ; then 
@@ -152,7 +152,7 @@ function checkApp() {
     else 
         echo "$APP_NAME is running!" 
 
-        printf "$header" "PID" "Mem Usage" "VSZ" "Mem%" "CPU%" 
+        printf "$header" "PID" "Mem Usage" "VSZ" "Mem%" "CPU%" "Name" 
         printf "%$width.${width}s\n" "$divider"
 
         for pid in $PIDS; do
@@ -171,8 +171,11 @@ function checkApp() {
             CPU_USAGE_COMMAND="ps aux | grep $APP_NAME_FOR_PID | grep $pid | awk '{print "'$3'"}'"
             CPU_USAGE=`eval $CPU_USAGE_COMMAND`
 
+            NAME_COMMAND="ps aux | grep $APP_NAME_FOR_PID | grep $pid | awk '{print "'$11'"}'"
+            NAME=`eval $NAME_COMMAND`
+
             printf "$format" \
-            $pid  "$MEM_USAGE_T MB" "$VSZ_USAGE_T MB" "$MEMP_USAGE" "$CPU_USAGE"
+            $pid "$MEM_USAGE_T MB" "$VSZ_USAGE_T MB" "$MEMP_USAGE" "$CPU_USAGE" "$NAME"
         done
     fi 
 
@@ -195,7 +198,7 @@ function tailLogFile() {
         exit -1
     fi
 
-    tail -200f $LOG_FILE_PATH | while read line 
+    tail -200ft $LOG_FILE_PATH | while read line 
     do
         echo $line
     done
@@ -654,7 +657,7 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
             echo "Configuration file sync to ${addrs[0]}:$REMOTE_SCRIPT_PATH"
             echo "Server: ${addrs[0]}"
             echo "============================================="
-            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
+            ssh ${addrs[0]} 'bash -s -t' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
         fi
     fi
 else
