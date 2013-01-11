@@ -1,10 +1,10 @@
 **Utility repo** is for any useful script, code, etc. 
-Current scripts are
+Current utility projects are
 
- * appMan.sh : Wrapper for any process. It is possible to kill, start, stop, see memory usage etc. Remote scripting is possible.
+ * appMan: Wrapper for any process. It is possible to kill, start, stop, see memory usage etc. Remote scripting is possible.
 
-appMan.sh
-------------
+appMan
+=============
 
 **How to use** : Set your UNIQUE application name and other parameters to **config.sh**. Then run the script with parameters shown below. Can be used for Apache Tomcat, Gunicorn etc. or any running process. Start editing the parameters at **config.sh**. Have fun.
 
