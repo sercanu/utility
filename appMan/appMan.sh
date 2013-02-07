@@ -145,14 +145,14 @@ function checkApp() {
     divider=$divider$divider
     header="\n %-7s %-11s %-10s %-8s %-8s %-11s\n"
     format=" %-7s %-11s %-10s %-8s %-8s %-11s\n"
-    width=45
+    width=55
 
     if [ -z "$PIDS" ] ; then 
         echo "$APP_NAME is NOT running!"
     else 
         echo "$APP_NAME is running!" 
 
-        printf "$header" "PID" "Mem Usage" "VSZ" "Mem%" "CPU%" "Name" 
+        printf "$header" "PID" "Mem Usage" "VSZ" "Mem%" "CPU%" "Name"
         printf "%$width.${width}s\n" "$divider"
 
         for pid in $PIDS; do
@@ -198,7 +198,7 @@ function tailLogFile() {
         exit -1
     fi
 
-    tail -200ft $LOG_FILE_PATH | while read line 
+    tail -200f $LOG_FILE_PATH | while read line 
     do
         echo $line
     done
@@ -657,7 +657,7 @@ if [ ! -z "$REMOTE_SERVER_ADDRS" ]; then
             echo "Configuration file sync to ${addrs[0]}:$REMOTE_SCRIPT_PATH"
             echo "Server: ${addrs[0]}"
             echo "============================================="
-            ssh ${addrs[0]} 'bash -s -t' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
+            ssh ${addrs[0]} 'bash -s' < "$SCRIPT_PATH" "$COMMAND_TYPE" "$REMOTE_SCRIPT_PATH$CONFIG_FILE" "R"
         fi
     fi
 else
